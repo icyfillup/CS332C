@@ -4,6 +4,7 @@
 int main()
 {
     Polynomial p(5);
-    std::cout << "Hello world!" << std::endl;
+    std::cin >> p;
+
     return 0;
 }
