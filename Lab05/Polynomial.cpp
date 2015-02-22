@@ -2,7 +2,7 @@
 #include <iostream>
 #include <stdlib.h>
 
-bool DEBUG = true;
+bool DEBUG = false;
 
 Polynomial::Polynomial(int degree) : size(degree + 1), values(new double[degree + 1])
 {
@@ -121,13 +121,11 @@ const Polynomial Polynomial::operator +(const Polynomial& other) const
 
     if(size <= other.size)
     {
-        newSize = other.size;
         offset = other.size - size;
 
         for(int i = 0; i < newPoly.size; i++)
         {
-            sum = 0;
-            sum += *(other.values + i);
+            sum = *(other.values + i);
              if(offset <= i)
                 sum += *(values + i - offset);
             *(newPoly.values + i) = sum;
@@ -135,15 +133,13 @@ const Polynomial Polynomial::operator +(const Polynomial& other) const
     }
     else
     {
-        newSize = size;
         offset = size - other.size;
 
         for(int i = 0; i < newPoly.size; i++)
         {
-            sum = 0;
-            sum += *(other.values + i);
+            sum = *(values + i);
             if(offset <= i)
-                sum += *(values + i - offset);
+                sum += *(other.values + i - offset);
             *(newPoly.values + i) = sum;
         }
     }
@@ -164,27 +160,26 @@ const Polynomial Polynomial::operator -(const Polynomial& other) const
 
     if(size <= other.size)
     {
-        newSize = other.size;
         offset = other.size - size;
 
         for(int i = 0; i < newPoly.size; i++)
         {
-            diff = 0;
-            diff -= *(other.values + i);
              if(offset <= i)
-                diff -= *(values + i - offset);
+                diff = *(values + i - offset);
+            else
+                diff = 0;
+
+            diff -= *(other.values + i);
             *(newPoly.values + i) = diff;
         }
     }
     else
     {
-        newSize = size;
         offset = size - other.size;
 
         for(int i = 0; i < newPoly.size; i++)
         {
-            diff = 0;
-            diff -= *(values + i);
+            diff = *(values + i);
             if(offset <= i)
                 diff -= *(other.values + i - offset);
             *(newPoly.values + i) = diff;
@@ -208,13 +203,22 @@ const Polynomial Polynomial::operator -() const
     return newPoly;
 }
 
+const Polynomial operator *(const Polynomial& other, const int scalar)
+{
+    Polynomial newPoly(other.size - 1);
 
+    for(int i = 0; i < newPoly.size; i++)
+    {
+        *(newPoly.values + i) = scalar * (*(other.values + i));
+    }
 
+    if(DEBUG && false)
+        std::cout << "scalar: " << scalar << std::endl;
 
+    return newPoly;
+}
 
-
-
-
-
-
-
+const Polynomial operator *(const int scalar, const Polynomial& other)
+{
+    return other * scalar;
+}
