@@ -1,4 +1,4 @@
-#include "Polynomial.h"
+#include "polynomial.h"
 #include <iostream>
 
 void displayPoly(const Polynomial& poly1, const Polynomial& poly2);
