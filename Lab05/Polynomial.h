@@ -9,6 +9,10 @@ class Polynomial
         Polynomial(const Polynomial &other);
         ~Polynomial();
 
+        bool operator ==(const Polynomial& other) const;
+        const Polynomial operator +(const Polynomial& other) const;
+        const Polynomial operator -(const Polynomial& other) const;
+        const Polynomial operator -() const;
         friend std::ostream& operator <<(std::ostream& out, const Polynomial& other);
         friend std::istream& operator >>(std::istream& in, const Polynomial& other);
 
