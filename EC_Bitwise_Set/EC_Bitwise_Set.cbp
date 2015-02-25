@@ -32,7 +32,9 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="main.cpp" />
+		<Unit filename="MySet.cpp" />
+		<Unit filename="MySet.h" />
+		<Unit filename="set_main.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
